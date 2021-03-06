@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title>Официальный сайт</title>
+	<style>
+		html, body {
+			font-family: Arial, Helvetica, sans-serif;
+			margin: 0;
+			padding: 0;		
+		}
+		
+		.fixed-container {
+			width: 1000px;
+			margin: 0 auto 0 auto;
+		}
+		header {
+			height: 120px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		nav {
+			display: flex;
+			align-items: center;
+		}
+		nav a {
+			margin-right: 20px;
+			color: black;
+			text-decoration: none;
+		}
+		nav a:hover {
+			text-decoration: underline;
+		}
+		.phone-button {
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+		}
+
+		.hight-button {
+			margin-left: 20px;
+			border: 1px solid gray;
+			background-color: transparent;
+			border-radius: 5px;
+			padding: 10px 30px 10px 30px;
+			cursor: pointer;
+		}
+
+		.light-button {
+			border: 1px solid gray;
+			background-color: transparent;
+			border-radius: 5px;
+			padding: 10px 30px 10px 30px;
+			cursor: pointer;
+		}
+
+		.second {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			height: 500px;
+		}
+
+		.info {
+			font-size: 20px;
+			color: #303030;
+			margin: 0 30px 50px 0;
+		}
+		.more {
+			padding-top: 19px;
+			padding-bottom: 19px;
+			font-size: 18px;
+			line-height: 20px;
+			text-align: center;
+			max-width: 260px;
+			background: #3F2AFF;
+			border-radius: 10px;
+			color: #fff;
+			cursor: pointer;
+		}
+
+		.man {
+			width: 500px;
+		}
+		.services-list {
+			display: flex;
+			justify-content: space-between;
+			margin: 20px 0 20px 0;
+		}
+		.services-list div {
+			padding-top: 160px;
+			background-size: 150px;
+			background-repeat: no-repeat;
+			background-position: left top;
+		}
+		.ex-list div {
+			padding-top: 160px;
+			background-size: 200px;
+			background-repeat: no-repeat;
+			background-position: left top;
+		}
+		.service-1 {
+			background-image: url('img/1.png');
+		}
+
+		.service-2 {
+			background-image: url('img/2.png');
+		}
+
+		.service-3 {
+			background-image: url('img/3.png');
+		}
+
+		.service-4 {
+			background-image: url('img/4.png');
+		}
+		.ex-list {
+			display: flex;
+			justify-content: space-between;
+			margin: 20px 0 20px 0;
+		}
+		.example-1 {
+			background-image: url('img/e1.png');
+		}
+		.example-2 {
+			background-image: url('img/e2.png');
+		}
+		.example-3 {
+			background-image: url('img/e3.png');
+		}
+
+		/* PRICES BLOCK STYLES */
+		.prices-block {
+			margin: 60px 0 60px 0;
+		}
+		.prices-block {
+			background-color: blue;
+			padding: 60px 0 60px 0;
+			color: white;
+		}
+		.price-text {
+			font-weight: bold;
+			font-size: 32px;
+			margin-bottom: 50px;
+		}
+		/* PRICES BLOCK STYLES */
+
+		.popup-layout {
+			position: fixed;
+			height: 100%;
+			width: 100%;
+			background-color: #0000009e;
+			z-index: 10;
+			display: none;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.popup {
+			width: 300px;
+			background-color: white;
+			border-radius: 10px;
+			padding: 20px;
+		}
+
+		.popup-close {
+			height: 32px;
+			width: 32px;
+			float: right;
+			background-image: url('img/close.png');
+			background-size: 30px;
+			background-repeat: no-repeat;
+			background-position: center center;
+			clear: both;
+			cursor: pointer;
+		}
+
+		h3 {
+			margin: 0;
+		}
+
+		.form-field {
+			margin: 20px 0 20px 0;
+		}
+		.form-field input {
+			width: 80%;
+		}
+
+		.button-container {
+			display: flex;
+			justify-content: center;
+		}
+
+		footer{
+            height: 120px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        footer div {
+            display: flex;
+        }
+
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+		$(function(){
+            $('button').on('click', function(){
+                $('.popup-layout').css('display', 'flex');
+            });
+
+            $('.popup-layout').on('click', function(event){
+                if(event.target === this) {
+                    $('.popup-layout').css('display', 'none');
+                }
+            });
+
+            $('.popup-close').on('click', function(){
+                $('.popup-layout').css('display', 'none');
+            });
+
+            $('input[type="submit"]').on('click', function(){
+                let request = {
+                    'name': $('#name').val(),
+                    'email': $('#email').val()
+                };
+                $.post('api.php', request, function(response){
+                    if(response == '1') {
+                        $('.popup-layout').css('display', 'none');
+                    } else {
+                        alert('Ошибка :(');
+                    }
+                });
+            });
+        });
+	</script>
+</head>
+<body>
+	<div class="popup-layout">
+		<div class="popup">
+			<div class="popup-close"></div>
+			<h3>Оставьте заявку</h3>
+			<div class="form-field">
+				<input type="text" placeholder="Имя" id="name">
+			</div>
+			<div class="form-field">
+				<input type="email" placeholder="E-mail" id="email">
+			</div>
+			<div class="button-container">
+				<input type="submit" class="light-button" value="Отправить">
+			</div>
+		</div>
+	</div>
+	<header class="fixed-container">
+		<nav>
+			<a href="#">Услуги</a>
+			<a href="#">Портфолио</a>
+			<a href="#">Стоимость</a>
+		</nav>
+		<div class="phone-button">
+			<div>+7 (902) 589-47-28</div>
+			<!-- ADD CLASS -->
+			<button class="hight-button">Заказать звонок</button>
+		</div>
+	</header>
+	<section class="fixed-container second">
+		<div class="fio">
+			<h1 style="font-size: 55px">Денис Крашенинников</h1>
+			<div class="info">Начинающий PHP-программист</div>
+			<button class="more">Узнать больше</button>
+		</div>
+		<div>
+			<img  class="man" src="img/man.png" alt="man">
+		</div>
+	</section>
+
+</section>
+<section class="fixed-container services-block">
+	<h2>Что я делаю</h2>
+	<div class="services-list">
+		<div class="service-1">Вёрстка лендинг-страниц<br>и сайтов любой сложности</div>
+		<div class="service-2">Адаптивная вёрстка под<br>все браузеры и устройства</div>
+		<div class="service-3">Frontend-разработка<br>и программирование</div>
+		<div class="service-4">Исправление и доработка<br>существующей вёрстки</div>
+	</div>
+	<button class="light-button">Узнать стоимость</button>
+</section>
+</section>
+
+<section class="fixed-container example-block">
+	<h2>Примеры работ</h2>
+	<div class="ex-list">
+		<div class="example-1">Сайт психолога Веры Антоновой</div>
+		<div class="example-2">Сайт магазина детской одежды</div>
+		<div class="example-3">Сайт магазина "Рабалов"</div>
+	</div>
+	<button class="light-button">Заказать проект</button>
+</section>
+
+<section class="prices-block">
+	<div class="fixed-container">
+		<div class="price-text">
+			Адаптивная вёрстка под все<br>
+			устройства и браузеры<br>
+			от 1000 р. всего за 4 часа.*
+		</div>
+		<small>* Срок и стоимость могут отличаться от заявленных и рассчитываются<br>индивидуально в зависимости от сложности задач.</small>
+	</div>
+</section>
+
+<footer class="fixed-container">
+	<nav>
+		<a href="#">Услуги</a>
+		<a href="#">Портфолио</a>
+		<a href="#">Стоимость</a>
+	</nav>
+	<nav>
+		<a href="#">deniskrasheninnikov73@gmail.com</a>
+		<a href="#">+7 (902) 589-47-28</a>
+	</nav>    
+	<div class="phone-button">
+		<button class="hight-button">Заказать звонок</button>
+	</div>
+</footer>
+
+</body>
+</html>
